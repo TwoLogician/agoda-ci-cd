@@ -15,6 +15,8 @@ dotnet_csproj:
   informational_version: '{version}'
 before_build:
 - ps: >-
+    cd techatagoda20180804/
+
     yarn install
 
     yarn webpack --config webpack.config.vendor.js
