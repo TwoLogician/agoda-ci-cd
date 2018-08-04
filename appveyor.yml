@@ -15,7 +15,7 @@ dotnet_csproj:
   informational_version: '{version}'
 before_build:
 - ps: >-
-    cd techatagoda20180804/
+    cd src
 
     yarn install
 
@@ -23,10 +23,16 @@ before_build:
 
     yarn webpack
 
+    cd ..
+
     dotnet restore
 build:
-  project: techatagoda20180804\techatagoda.csproj
+  project: techatagoda.sln
+  publish_aspnet_core: true
   verbosity: minimal
+test_script:
+- ps: >-
+    & $env:USERPROFILE\.nuget\packages\opencover\4.6.519\tools\OpenCover.Console.exe -register:user -oldStyle -target:"dotnet.exe" -targetargs:"test .\tests\tests.csproj" -filter:"+[techatagoda*]* +[techatagoda.*]* +[tests*]*" -output:"coverage.xml"
 notifications:
 - provider: GitHubPullRequest
   on_build_success: true

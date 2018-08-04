@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using techatagoda.Services;
 
 namespace techatagoda.Controllers
 {
@@ -11,6 +12,7 @@ namespace techatagoda.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["name"] = new NameService().GetName("Mr.");
             return View();
         }
 
